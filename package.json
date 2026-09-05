@@ -2,15 +2,25 @@
   "name": "health-care-api",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://github.com/mushfiqur2002/health-care-api#readme",
+  "bugs": {
+    "url": "https://github.com/mushfiqur2002/health-care-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mushfiqur2002/health-care-api.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^26.4.1",
     "@types/pg": "^8.23.1",
     "prisma": "^7.10.0",
