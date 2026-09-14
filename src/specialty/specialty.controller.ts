@@ -1,71 +1,69 @@
 import { Request, Response } from "express"
 import { SpecialtyService } from "./specialty.service"
+import { catchAsync } from "../shared/handeller"
+import { sendResponse } from "../shared/sendResponse"
+
 
 // get all
-const getSpecialty = async (req: Request, res: Response) => {
+const getSpecialty = catchAsync(async (req, res) => {
     const result = await SpecialtyService.getSpecialty()
-
-    res.status(200).send({
+    sendResponse(res, {
+        httpCode: 200,
+        data: result,
         success: true,
-        message: "specialty fetched successfully",
-        data: result
+        message: "Specialty all fetched successfully"
     })
-}
+})
+
 
 // get by id
-// Controller
-const getSpecialtyByID = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
-        const result = await SpecialtyService.getSpecialtyByID(id as string);
+const getSpecialtyByID = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await SpecialtyService.getSpecialtyByID(id as string);
 
-        if (!result) {
-            return res.status(404).send({
-                success: false,
-                message: "Specialty not found",
-                data: null
-            });
-        }
-
-        return res.status(200).send({
-            success: true,
-            message: "Specialty fetched by ID successfully",
-            data: result
-        });
-    } catch (error) {
-        console.error("Error fetching specialty:", error);
-        return res.status(500).send({
+    if (!result) {
+        sendResponse(res, {
+            httpCode: 404,
             success: false,
-            message: "Internal server error",
-            error: error instanceof Error ? error.message : "Unknown error"
-        });
+            message: "Specialty not found",
+            data: null
+        })
     }
-};
+
+    sendResponse(res, {
+        httpCode: 200,
+        success: true,
+        message: "Specialty fetched by ID successfully",
+        data: result
+    });
+})
 
 
 // delete by id
-const deleteSpecialtyByID = async (req: Request, res: Response) => {
+const deleteSpecialtyByID = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
     const result = await SpecialtyService.deleteSpecialtyByID(id as string)
 
-    res.status(200).send({
+    sendResponse(res, {
+        httpCode: 200,
         success: true,
         message: "specialty deleted successfully",
         data: result
     })
-}
+})
 
 // create 
-const createSpecialty = async (req: Request, res: Response) => {
+const createSpecialty = catchAsync(async (req: Request, res: Response) => {
     const payLoad = req.body
     const result = await SpecialtyService.createSpecialty(payLoad)
 
-    res.status(200).send({
+    sendResponse(res, {
+        httpCode: 201,
         success: true,
         message: "specialty created successfully",
         data: result
     })
-}
+})
 
 export const SpecialtyController = {
     getSpecialty,
