@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Specialty {
+    id String @id @default(uuid())
+
+    title       String  @unique @db.VarChar(255)
+    description String? @db.Text
+    icon        String? @db.VarChar(255)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    isDeleted Boolean   @default(false)
+    deletedAt DateTime?
+
+    @@index([isDeleted], name: "specialty_is_deleted_idx")
+    @@index([title], name: "specialty_is_title_idx")
+    @@map("specialties")
+}

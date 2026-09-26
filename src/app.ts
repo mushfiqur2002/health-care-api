@@ -1,5 +1,5 @@
 import express, { Application } from 'express'
-import { IndexRouter } from "./routes/index"
+import { IndexRouter } from "./app/routes/index"
 
 export const app: Application = express()
 export const port = process.env.PORT || 5000

@@ -1,5 +1,5 @@
-import { Specialty } from "../generated/prisma/client"
-import { prisma } from "../lib/prisma"
+import { Specialty } from "../../generated/prisma/client"
+import { prisma } from "../../lib/prisma"
 
 // get all
 const getSpecialty = async (): Promise<Specialty[]> => {
