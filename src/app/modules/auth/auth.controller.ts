@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { catchAsync } from "../shared/handeller";
 import { AuthService } from "./auth.service";
 import { sendResponse } from "../shared/sendResponse";
+import { StatusCodes } from "http-status-codes";
 
 const registerPatient = catchAsync(
     async (req: Request, res: Response) => {
@@ -9,7 +10,7 @@ const registerPatient = catchAsync(
         const result = await AuthService.registerPatient(payload)
 
         sendResponse(res, {
-            httpCode: 201,
+            httpCode: StatusCodes.OK,
             success: true,
             message: "register patient successfully",
             data: result
@@ -23,7 +24,7 @@ const logInUser = catchAsync(
         const result = await AuthService.logInUser(payload)
 
         sendResponse(res, {
-            httpCode: 201,
+            httpCode: StatusCodes.OK,
             success: true,
             message: "log in user successfully",
             data: result

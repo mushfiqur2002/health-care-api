@@ -1,0 +1,10 @@
+-- AlterTable
+ALTER TABLE "doctors" ALTER COLUMN "registrationNumber" DROP NOT NULL,
+ALTER COLUMN "experience" DROP NOT NULL,
+ALTER COLUMN "gender" DROP NOT NULL,
+ALTER COLUMN "appointmentFees" DROP NOT NULL,
+ALTER COLUMN "qualification" DROP NOT NULL,
+ALTER COLUMN "workingPlace" DROP NOT NULL,
+ALTER COLUMN "workingPlace" SET DATA TYPE TEXT,
+ALTER COLUMN "designation" DROP NOT NULL,
+ALTER COLUMN "averageRating" DROP NOT NULL;

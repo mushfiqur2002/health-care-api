@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { SpecialtyService } from "./specialty.service"
-import { catchAsync } from "../shared/handeller"
-import { sendResponse } from "../shared/sendResponse"
+import { catchAsync } from "../app/modules/shared/handeller"
+import { sendResponse } from "../app/modules/shared/sendResponse"
 
 
 // get all
