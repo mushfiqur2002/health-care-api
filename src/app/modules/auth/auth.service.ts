@@ -1,5 +1,6 @@
 import { auth } from "../../../lib/auth";
 import { prisma } from "../../../lib/prisma";
+import { tokenUtils } from "../../../utils/token";
 
 interface IRegister {
     name: string,
@@ -34,8 +35,28 @@ const registerPatient = async (payload: IRegister) => {
             return patientTX
         })
 
+        const accessToken = tokenUtils.getAccessToken({
+            userID: data.user.id,
+            role: data.user.role,
+            name: data.user.name,
+            email: data.user.email,
+            status: data.user.status,
+            isDeleted: data.user.isDeleted
+        })
+
+        const refreshToken = tokenUtils.getRefreshToken({
+            userID: data.user.id,
+            role: data.user.role,
+            name: data.user.name,
+            email: data.user.email,
+            status: data.user.status,
+            isDeleted: data.user.isDeleted
+        })
+
         return {
             ...data,
+            accessToken,
+            refreshToken,
             patient
         }
 
@@ -56,7 +77,31 @@ const logInUser = async (payload: ILogIn) => {
     const data = await auth.api.signInEmail({
         body: { email, password }
     })
-    return data;
+
+    const accessToken = tokenUtils.getAccessToken({
+        userID: data.user.id,
+        role: data.user.role,
+        name: data.user.name,
+        email: data.user.email,
+        status: data.user.status,
+        isDeleted: data.user.isDeleted
+    })
+
+    const refreshToken = tokenUtils.getRefreshToken({
+        userID: data.user.id,
+        role: data.user.role,
+        name: data.user.name,
+        email: data.user.email,
+        status: data.user.status,
+        isDeleted: data.user.isDeleted
+    })
+
+
+    return {
+        ...data,
+        accessToken,
+        refreshToken
+    };
 }
 
 export const AuthService = {
